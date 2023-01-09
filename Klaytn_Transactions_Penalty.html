@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Oxygen - Emission Trading Scheme Platform </title>
+  <!-- <link rel="stylesheet" type="text/css"
+    href="https://storage.googleapis.com/chart-api-db/CDN/deps/opt/bootstrap.css" /> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="assets/css/main.css" />
+</head>
+
+<body>
+  <div id="page-wrapper">
+    <header id="header" class="alt" style="background-color: black;">
+      <h1 style="margin-top: 3px; font-size:50px;"><a href="index.html"><b>OXYGEN</b></a>
+      </h1>
+      <nav id="nav">
+        <ul>
+          <li><a href="Klaytn_Accounts.html">Accounts Info</a></li>
+          <li><a href="Klaytn_Transactions_Incentives.html">Incentives</a></li>
+          <li><a href="Klaytn_Transactions_Penalty.html">Penalty</a></li>
+        </ul>
+        
+      </nav>
+    </header>
+  </div>
+  <div class="container">
+    <div style="margin-top: 30px;">
+      <ul style="background-color:antiquewhite; font-size: larger;color: black;">
+        <li>Organisations that exceed their specified emission limits have to pay a penalty</li>
+        
+      </ul>
+
+    </div>
+    
+
+    <form id="searchForm" style="display: none;"></form>
+    <form id="paymentForm" style="display: none;"></form>
+
+    <form id="qrCode" style="display: none;"></form>
+    <pre id="myText" style="display: none;"></pre>
+    <div id="feedbackGrid" class="mt-3"></div>
+  </div>
+  <br></br>
+  <footer id="footer">
+    <ul class="icons">
+      <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+      <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+      <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+      <li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
+      <li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
+      <li><a href="#" class="icon brands fa-google-plus"><span class="label">Google+</span></a></li>
+    </ul>
+    <ul class="copyright">
+      <p>Copyright &copy; Oxygen - Emission Trade Scheme Platform</a> </p>
+    </ul>
+  </footer>
+
+  <div id="res" class="alert"></div>
+  <script src="https://storage.googleapis.com/chart-api-db/assets/js/jquery.min.js"></script>
+  <script src="https://storage.googleapis.com/chart-api-db/assets/js/jquery.dropotron.min.js"></script>
+  <script src="https://storage.googleapis.com/chart-api-db/assets/js/jquery.scrollex.min.js"></script>
+  <script src="https://storage.googleapis.com/chart-api-db/assets/js/browser.min.js"></script>
+  <script src="https://storage.googleapis.com/chart-api-db/assets/js/breakpoints.min.js"></script>
+  <script src="https://storage.googleapis.com/chart-api-db/assets/js/util.js"></script>
+  <script src="https://storage.googleapis.com/chart-api-db/assets/js/main.js"></script>
+  <script type="text/javascript" src="https://storage.googleapis.com/chart-api-db/CDN/deps/underscore.js"></script>
+  <script type="text/javascript" src="https://storage.googleapis.com/chart-api-db/CDN/deps/opt/jsv.js"></script>
+  <script type="text/javascript" src="https://storage.googleapis.com/chart-api-db/CDN/lib/jsonform.js"></script>
+  <script src="https://cdn.syncfusion.com/ej2/dist/ej2.min.js" type="text/javascript"></script>
+  <link href="https://cdn.syncfusion.com/ej2/material.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuidv4.min.js"></script>
+
+  <script type="text/javascript">
+
+    // sendPaymentBtn = () => {
+      let insertFormEle = document.querySelector("#paymentForm");
+      insertFormEle.style.display = insertFormEle.style.display == "none" ? "" : "none";
+      $('#feedbackGrid').hide();
+      $('#searchForm').hide();
+      $('#paymentForm').html("");
+      let newUuid = uuidv4();
+      $('#paymentForm').jsonForm({
+        schema: {
+          SenderKey: {
+            type: 'string',
+            default: "0x10bA630C213f08383E835471f91a0941e2678f9F",
+            title: 'Company Key',
+            required: true
+          },
+          ReceiversKey: {
+            type: 'string',
+            default: "0xAde5F750187d27D37cea53E16Ab23FbADf181eE9",
+            title: 'Government Agency Key',
+            required: true
+          },
+          CompanyName: {
+            type: 'string',
+            title: 'Company Name',
+            default: "Globe Leather Indstries",
+            required: true
+          },
+          Remarks: {
+            type: 'string',
+            title: 'Remarks',
+            default: "The company's emissions were 10% higher than the limit allowed to them and hence they have been charged a penalty of xxxx Klay",
+            required: true
+          },
+          
+          Gas: {
+            type: 'number',
+            default: 250000,
+            title: 'Gas Value',
+            required: true
+          },
+          Amount: {
+            type: 'string',
+            title: 'Amount',
+            default: "0x1000000",
+            required: true
+          },
+        },
+        form: [
+          {
+            key: "SenderKey",
+            type: "text"
+          },
+          {
+            key: "ReceiversKey",
+            type: "text"
+          },
+          {
+            key: "CompanyName",
+            type: "text"
+          },
+          {
+            key: "Remarks",
+            type: "text"
+          },
+          {
+            key: "Gas",
+            type: "text"
+          },
+          {
+            key: "Amount",
+            type: "text"
+          },
+          {
+            type: "submit",
+            title: "Confirm Payment"
+          }
+        ],
+        onSubmit: function (errors, values) {
+          if (errors) {
+            $('#res').html('<p>Please fill required fields!</p>');
+          }
+          else {
+            debugger
+            console.log(values);
+            var record = {};
+            record.SenderKey = values.SenderKey;
+            record.Gas = values.Gas;
+            record.ReceiversKey = values.ReceiversKey;
+            record.Amount = values.Amount;
+            record.memo = values.CompanyName + ": " + values.Remarks;
+
+            var myHeaders = new Headers();
+            myHeaders.append("x-chain-id", "1001");
+            myHeaders.append("Content-Type", "application/json");
+            myHeaders.append("Authorization", "Basic S0FTS05HTFcyQzZMSloxM0dYWkNDU1RROkdPWldqQXpZSkQyQjdLTnVmVExZWERGU1dwUmdQVFROaVNIXzVCVjk=");
+
+            var raw = JSON.stringify({
+              "from": record.SenderKey,
+              "value": record.Amount,
+              "to": record.ReceiversKey,
+              "memo": record.memo,
+              "nonce": 0,
+              "gasLimit": record.Gas,
+              "submit": true
+            });
+
+            var requestOptions = {
+              method: 'POST',
+              headers: myHeaders,
+              body: raw,
+              redirect: 'follow'
+            };
+
+            fetch("https://wallet-api.klaytnapi.com/v2/tx/value", requestOptions)
+              .then(response => response.text())
+              .then(data => {
+                alert(data);
+                document.getElementById("myText").innerHTML = "";
+                document.getElementById("myText").innerHTML += "Your Fund Transfer Details:" + "\n";
+                // alert(JSON.stringify(data));
+                data = JSON.parse(data);
+                for (var key in data) {
+
+                  //if (data.hasOwnProperty(key)) {
+                  debugger
+                  if (typeof (data[key]) == "object") {
+                    document.getElementById("myText").innerHTML += "\n";
+                    document.getElementById("myText").innerHTML += "Make Payment " + key.toUpperCase() + " Details:" + "\n";
+                    for (var key1 in data[key]) {
+                      if (data[key][key1] != "" && data[key][key1] != null && typeof (data[key][key1]) != "object") {
+                        document.getElementById("myText").innerHTML += "    " + key1.toUpperCase() + " : " + data[key][key1] + "\n";
+                      }
+                    }
+                    document.getElementById("myText").innerHTML += "\n";
+                  }
+                  else if (data[key] != "" && data[key] != null) {
+                    document.getElementById("myText").innerHTML += key.toUpperCase() + " : " + data[key] + "\n";
+                  }
+                  // console.log(key + " : " + data.account_data[key]);
+
+
+                  // document.getElementById("myText").innerHTML += JSON.stringify(data) + "\n";
+                  //}
+                }
+                $('#myText').show();
+
+              })
+              .catch(error => console.log('error', error));
+            // let url = "https://chart-api-6httuqd2wq-uc.a.run.app?dbParams=" + JSON.stringify(paramsObj);
+            // fetch(url)
+            // .then(response=>response.text())
+            // .then(data=>{
+            //   alert(data);
+            //   var fetchObj = {};
+            //   fetchObj.type = "MongodbData";
+            //   fetchObj.database = "Industry";
+            //   fetchObj.collection = "Suppliers";
+            //   fetchObj.queryType = "read";
+            //   fetchObj.record = {};
+            //   let url = "https://chart-api-6httuqd2wq-uc.a.run.app?dbParams=" + JSON.stringify(fetchObj);
+            //   fetch(url)
+            //   .then(response=>response.json())
+            //   .then(data=>{
+            //     grid.dataSource = data;
+            //     sendPaymentBtn();
+            //   })
+            // })
+          }
+        }
+      });
+
+    // }
+
+    handleUpdateFeedback = () => {
+      let updateFormEle = document.querySelector("#updateForm");
+      updateFormEle.style.display = updateFormEle.style.display == "none" ? "" : "none";
+    }
+
+    // scanQRBtn = () => {
+    //   var paramsObj = {};
+    //   paramsObj.type = "Ripple";
+    //   paramsObj.queryType = "qrcode";
+
+    //   //alert(paramsObj)
+
+    //   let url = "https://chart-api-6httuqd2wq-uc.a.run.app?dbParams=" + JSON.stringify(paramsObj);
+    //   fetch(url)
+    //     .then(response => response.json())
+    //     .then(data => {
+    //       window.open(data, "_blank");
+    //     })
+    // }
+
+    accountDetailsBtn = () => {
+      var myHeaders = new Headers();
+      myHeaders.append("x-chain-id", "1001");
+      myHeaders.append("Authorization", "Basic S0FTSzhaVUFGVUxIOUNTRU5NWUI0VFE1OmplYlUxVExxRVhxZ0RhYTNQRVY2UmdFd0FKdzNVcENRMnctdWtUVUg=");
+
+      var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+      };
+
+      fetch("https://wallet-api.klaytnapi.com/v2/account?&size=100&cursor=&from-timestamp=1592360291&to-timestamp=15991809920", requestOptions)
+        .then(response => response.text())
+        .then(data => {
+          alert(data);
+          document.getElementById("myText").innerHTML = "";
+          // alert(JSON.stringify(data));
+          data = JSON.parse(data);
+          data = data["items"];
+          for (var key in data) {
+            //if (data.hasOwnProperty(key)) {
+            debugger
+            if (typeof (data[key]) == "object") {
+              document.getElementById("myText").innerHTML += "\n";
+              document.getElementById("myText").innerHTML += key.toUpperCase() + "\n";
+              for (var key1 in data[key]) {
+                if (data[key][key1] != "" && data[key][key1] != null && typeof (data[key][key1]) != "object") {
+                  document.getElementById("myText").innerHTML += "    " + key1.toUpperCase() + " : " + data[key][key1] + "\n";
+                }
+              }
+              document.getElementById("myText").innerHTML += "\n";
+            }
+            else if (data[key] != "" && data[key] != null) {
+              document.getElementById("myText").innerHTML += key.toUpperCase() + " : " + data[key] + "\n";
+            }
+            $('#myText').show();
+          }
+        })
+        .catch(error => console.log('error', error));
+
+    }
+
+
+    pendingTransactionBtn = () => {
+      let insertFormEle = document.querySelector("#paymentForm");
+      insertFormEle.style.display = insertFormEle.style.display == "none" ? "" : "none";
+      $('#feedbackGrid').hide();
+      $('#searchForm').hide();
+      $('#paymentForm').html("");
+      let newUuid = uuidv4();
+      $('#paymentForm').jsonForm({
+        schema: {
+          AccountKey: {
+            type: 'string',
+            default: "0x02d0427415b7815B84F06987d90d368f9427F560",
+            title: 'Account Key',
+            required: true
+          }
+        },
+        form: [
+          {
+            key: "AccountKey",
+            type: "text"
+          },
+          {
+            type: "submit",
+            title: "Submit"
+          }
+        ],
+        onSubmit: function (errors, values) {
+          if (errors) {
+            $('#res').html('<p>Please fill required fields!</p>');
+          }
+          else {
+            debugger
+            console.log(values);
+            var record = {};
+            record.AccountKey = values.AccountKey;
+
+            var myHeaders = new Headers();
+            myHeaders.append("x-chain-id", "1001");
+            myHeaders.append("Authorization", "Basic S0FTS05HTFcyQzZMSloxM0dYWkNDU1RROkdPWldqQXpZSkQyQjdLTnVmVExZWERGU1dwUmdQVFROaVNIXzVCVjk=");
+
+            var requestOptions = {
+              method: 'GET',
+              headers: myHeaders,
+              redirect: 'follow'
+            };
+
+            fetch("https://wallet-api.klaytnapi.com/v2/multisig/account/"+record.AccountKey+"/tx", requestOptions)
+              .then(response => response.text())
+              .then(data => {
+                document.getElementById("myText").innerHTML = "";
+                document.getElementById("myText").innerHTML += data;
+                //   data = JSON.parse(data);
+
+                //   for (var key in data) {
+                //     debugger
+                //     if (typeof (data[key]) == "object") {
+                //       document.getElementById("myText").innerHTML += "\n";
+                //       document.getElementById("myText").innerHTML += key.toUpperCase() + "\n";
+                //       for (var key1 in data[key]) {
+                //         if (data[key][key1] != "" && data[key][key1] != null && typeof (data[key][key1]) != "object") {
+                //           document.getElementById("myText").innerHTML += "    " + key1.toUpperCase() + " : " + data[key][key1] + "\n";
+                //         }
+                //       }
+                //       document.getElementById("myText").innerHTML += "\n";
+                //     }
+                //     else if (data[key] != "" && data[key] != null) {
+                //       document.getElementById("myText").innerHTML += key.toUpperCase() + " : " + data[key] + "\n";
+                //     }
+                //   }
+
+                $('#myText').show();
+
+              })
+              .catch(error => console.log('error', error));
+
+          }
+        }
+      });
+
+    }
+
+    signTransactionBtn = () => {
+      let insertFormEle = document.querySelector("#paymentForm");
+      insertFormEle.style.display = insertFormEle.style.display == "none" ? "" : "none";
+      $('#feedbackGrid').hide();
+      $('#searchForm').hide();
+      $('#paymentForm').html("");
+      let newUuid = uuidv4();
+      $('#paymentForm').jsonForm({
+        schema: {
+          Authorization: {
+            type: 'string',
+            default: "Basic S0FTS05HTFcyQzZMSloxM0dYWkNDU1RROkdPWldqQXpZSkQyQjdLTnVmVExZWERGU1dwUmdQVFROaVNIXzVCVjk=",
+            title: 'Authorization',
+            required: true
+          },
+          TransactionID: {
+            type: 'string',
+            default: "0x116c09d04cedb51e0bf00d74d6cd9107b4c814ee3d2451e77045081f4a19a920",
+            title: 'Transaction ID',
+            required: true
+          },
+          SigneeAddress: {
+            type: 'string',
+            default: "0x6fF3c8f1c61c39011b53C6cBEfE54b70433ff998",
+            title: 'Signee Address',
+            required: true
+          }
+          
+        },
+        form: [
+          {
+            key: "Authorization",
+            type: "text"
+          },
+          {
+            key: "TransactionID",
+            type: "text"
+          },
+          {
+            key: "SigneeAddress",
+            type: "text"
+          },
+          {
+            type: "submit",
+            title: "Submit"
+          }
+        ],
+        onSubmit: function (errors, values) {
+          if (errors) {
+            $('#res').html('<p>Please fill required fields!</p>');
+          }
+          else {
+            debugger
+            console.log(values);
+            var record = {};
+            record.Authorization = values.Authorization;
+            record.TransactionID = values.TransactionID;
+            record.SigneeAddress = values.SigneeAddress;
+
+            var myHeaders = new Headers();
+            myHeaders.append("x-chain-id", "1001");
+            myHeaders.append("Authorization", record.Authorization);
+
+            var requestOptions = {
+              method: 'POST',
+              headers: myHeaders,
+              redirect: 'follow'
+            };
+
+            fetch("https://wallet-api.klaytnapi.com/v2/multisig/account/"+record.SigneeAddress+"/tx/"+record.TransactionID+"/sign", requestOptions)
+              .then(response => response.text())
+              .then(data => {
+                document.getElementById("myText").innerHTML = "";
+                document.getElementById("myText").innerHTML += data;
+                //   data = JSON.parse(data);
+
+                //   for (var key in data) {
+                //     debugger
+                //     if (typeof (data[key]) == "object") {
+                //       document.getElementById("myText").innerHTML += "\n";
+                //       document.getElementById("myText").innerHTML += key.toUpperCase() + "\n";
+                //       for (var key1 in data[key]) {
+                //         if (data[key][key1] != "" && data[key][key1] != null && typeof (data[key][key1]) != "object") {
+                //           document.getElementById("myText").innerHTML += "    " + key1.toUpperCase() + " : " + data[key][key1] + "\n";
+                //         }
+                //       }
+                //       document.getElementById("myText").innerHTML += "\n";
+                //     }
+                //     else if (data[key] != "" && data[key] != null) {
+                //       document.getElementById("myText").innerHTML += key.toUpperCase() + " : " + data[key] + "\n";
+                //     }
+                //   }
+
+                $('#myText').show();
+
+              })
+              .catch(error => console.log('error', error));
+
+          }
+        }
+      });
+
+    }
+  </script>
+</body>
+
+</html>

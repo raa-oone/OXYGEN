@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Oxygen - Emission Trading Scheme Platform </title>
+  <meta charset="utf-8" />
+  <title>Supplier Warranty360.Products</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+</head>
+
+<body>
+  <div id="page-wrapper">
+    <header id="header" class="alt" style="background-color: black;">
+      <h1 style="margin-top: 3px; font-size:50px;"><a href="index.html"><b>OXYGEN</b></a>
+      </h1>
+      <nav id="nav">
+        <ul>
+          <li><a href="Klaytn_Accounts.html">Accounts Info</a></li>
+          <li><a href="Klaytn_Transactions_Incentives.html">Incentives</a></li>
+          <li><a href="Klaytn_Transactions_Penalty.html">Penalty</a></li>
+        </ul>
+        
+      </nav>
+    </header>
+  </div>
+  <div class="container">
+    <div style="margin-top: 30px;">
+      <ul style="background-color:antiquewhite; font-size: larger;color: black;">
+        <li>List of comapnies registered under the Emission Trading Scheme</li>
+        <li>View Account Info, Deactivate, Activate or Delete account</li>
+      </ul>
+
+    </div>
+    <!-- <button class="btn btn-primary my-3" onclick="sendPaymentBtn()">Transact</button> -->
+    <!-- <button class="btn btn-primary my-3" onclick="createAccountBtn()">Create Account</button>
+    <button class="btn btn-primary my-3" onclick="accountDetailsBtn()">List of Account</button>
+    <button class="btn btn-primary my-3" onclick="GetAccountInformation()">Account Information</button>
+    <button class="btn btn-primary my-3" onclick="DeleteAccount()">Delete Account</button>
+    <button class="btn btn-primary my-3" onclick="ActivateAccount()">Activate Account</button>
+    <button class="btn btn-primary my-3" onclick="DeactivateAccount()">Deactivate Account</button>
+     -->
+    <form id="searchForm" style="display: none;"></form>
+    <form id="paymentForm" style="display: none;"></form>
+    <form id="createAccountForm" style="display: none;"></form>
+    <form id="GetAccountInformationForm" style="display: none;"></form>
+    <form id="DeleteAccountForm" style="display: none;"></form>
+    <form id="ActivateAccountForm" style="display: none;"></form>
+    <form id="DeactivateAccountForm" style="display: none;"></form>
+
+    <form id="qrCode" style="display: none;"></form>
+
+    <div id="feedbackGrid" class="mt-3"></div>
+    <div id="Grid"></div>
+
+    <!-- Button trigger modal -->
+    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Launch demo modal
+    </button> -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+      style="margin-top : 50px; width: 1700px;">
+      <div class="modal-dialog">
+        <div class="modal-content" style="width: 800px;">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <pre id="myText" style="display: none;"></pre>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br></br>
+  <footer id="footer">
+    <ul class="icons">
+      <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+      <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+      <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+      <li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
+      <li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
+      <li><a href="#" class="icon brands fa-google-plus"><span class="label">Google+</span></a></li>
+    </ul>
+    <ul class="copyright">
+      <p>Copyright &copy; Oxygen - Emission Trade Scheme Platform</a> </p>
+    </ul>
+  </footer>
+
+  <div id="res" class="alert"></div>
+  <script src="https://storage.googleapis.com/chart-api-db/assets/js/jquery.min.js"></script>
+  <script src="https://storage.googleapis.com/chart-api-db/assets/js/jquery.dropotron.min.js"></script>
+  <script src="https://storage.googleapis.com/chart-api-db/assets/js/jquery.scrollex.min.js"></script>
+  <script src="https://storage.googleapis.com/chart-api-db/assets/js/browser.min.js"></script>
+  <script src="https://storage.googleapis.com/chart-api-db/assets/js/breakpoints.min.js"></script>
+  <script src="https://storage.googleapis.com/chart-api-db/assets/js/util.js"></script>
+  <script src="https://storage.googleapis.com/chart-api-db/assets/js/main.js"></script>
+  <script type="text/javascript" src="https://storage.googleapis.com/chart-api-db/CDN/deps/underscore.js"></script>
+  <script type="text/javascript" src="https://storage.googleapis.com/chart-api-db/CDN/deps/opt/jsv.js"></script>
+  <script type="text/javascript" src="https://storage.googleapis.com/chart-api-db/CDN/lib/jsonform.js"></script>
+  <script src="https://cdn.syncfusion.com/ej2/dist/ej2.min.js" type="text/javascript"></script>
+  <link href="https://cdn.syncfusion.com/ej2/material.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuidv4.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"></script>
+
+  <script type="text/javascript">
+
+    var myHeaders = new Headers();
+    myHeaders.append("x-chain-id", "1001");
+    myHeaders.append("x-krn", "krn:1001:wallet:4c50c0ca-d56f-4d70-9ffd-6f2f3dc2f5f5:account-pool:Companies");
+    myHeaders.append("Authorization", "Basic S0FTS05HTFcyQzZMSloxM0dYWkNDU1RROkdPWldqQXpZSkQyQjdLTnVmVExZWERGU1dwUmdQVFROaVNIXzVCVjk=");
+
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+    var url = "https://wallet-api.klaytnapi.com/v2/account?&size=100&cursor=&from-timestamp=1592360291&to-timestamp=15991809920";
+    fetch(url, requestOptions)
+      .then(response => response.text())
+      .then(data => {
+        var gridData = JSON.parse(data);
+        gridData = gridData["items"];
+        console.log(gridData);
+        var grid = new ej.grids.Grid({
+          dataSource: gridData,
+          childMapping: 'subtasks',
+          allowSelection: true,
+          allowFiltering: true,
+          allowSorting: true,
+          allowTextWrap: true,
+          allowPaging: true,
+          enableVirtualization: true,
+          toolbar: ['Search'],
+          filterSettings: { type: 'Menu' },
+          selectionSettings: { persistSelection: true, type: "Multiple", checkboxOnly: true },
+          enableHover: false,
+          enableHeaderFocus: true,
+          pageSettings: { pageCount: 4, pageSizes: true },
+          height: 300,
+          rowHeight: 38,
+          columns: [
+            { field: 'address', headerText: 'Address', width: 500, isPrimaryKey: 'True' },
+            // { field: 'chainId', headerText: 'ChainID', width: 150 },
+            // { field: 'keyId', headerText: 'KeyID', width: 1000 },
+            // { field: 'publicKey', headerText: 'PublicKey', width: 1000 },
+            // { field: 'name', headerText: 'FileName' },
+            {
+              headerText: 'Action', width: 160,
+              commands: [{ type: 'AccountInfo', buttonOption: { iconCss: ' e-icons e-edit', cssClass: 'e-flat' } },
+              { type: 'Deactivate', buttonOption: { iconCss: 'e-icons e-edit', cssClass: 'e-flat' } },
+              { type: 'Activate', buttonOption: { iconCss: ' e-icons e-edit', cssClass: 'e-flat' } },
+              { type: 'Delete', buttonOption: { iconCss: 'e-icons e-delete', cssClass: 'e-flat' } }
+              ]
+            }
+          ],
+          commandClick: (args) => {
+            debugger
+            var Address = `${args.rowData.address}`;
+            if (args.commandColumn.type == "Activate") {
+              confirm("Do You Want To Activate This Wallet " + Address + " ?");
+              var record = {};
+              record.AccountAddress = Address;
+
+              var myHeaders = new Headers();
+              myHeaders.append("x-chain-id", "1001");
+              myHeaders.append("x-krn", "krn:1001:wallet:4c50c0ca-d56f-4d70-9ffd-6f2f3dc2f5f5:account-pool:Companies");
+              myHeaders.append("Authorization", "Basic S0FTS05HTFcyQzZMSloxM0dYWkNDU1RROkdPWldqQXpZSkQyQjdLTnVmVExZWERGU1dwUmdQVFROaVNIXzVCVjk=");
+
+              var requestOptions = {
+                method: 'PUT',
+                headers: myHeaders,
+                redirect: 'follow'
+              };
+
+              fetch("https://wallet-api.klaytnapi.com/v2/account/" + record.AccountAddress + "/enable", requestOptions)
+                .then(response => response.text())
+                .then(data => { //alert(JSON.stringify(data))
+                  document.getElementById("myText").innerHTML = "";
+                  data = JSON.parse(data);
+
+                  for (var key in data) {
+                    
+                    debugger
+                    if (typeof (data[key]) == "object") {
+                      document.getElementById("myText").innerHTML += "\n";
+                      document.getElementById("myText").innerHTML += key.toUpperCase() + "\n";
+                      for (var key1 in data[key]) {
+                        if (data[key][key1] != "" && data[key][key1] != null && typeof (data[key][key1]) != "object") {
+                          document.getElementById("myText").innerHTML += "    " + key1.toUpperCase() + " : " + data[key][key1] + "\n";
+                        }
+                      }
+                      document.getElementById("myText").innerHTML += "\n";
+                    }
+                    else if (data[key] != "" && data[key] != null) {
+                      document.getElementById("myText").innerHTML += key.toUpperCase() + " : " + data[key] + "\n";
+                    }
+                    $('#exampleModal').modal('show');
+                    $('#myText').show();
+
+                  }
+                })
+            }
+            else if (args.commandColumn.type == "Deactivate") {
+              confirm("Do You Want To Deactivate This Wallet " + Address + " ?");
+              var record = {};
+              record.AccountAddress = Address;
+
+              var myHeaders = new Headers();
+              myHeaders.append("x-chain-id", "1001");
+              myHeaders.append("x-krn", "krn:1001:wallet:4c50c0ca-d56f-4d70-9ffd-6f2f3dc2f5f5:account-pool:Companies");
+              myHeaders.append("Authorization", "Basic S0FTS05HTFcyQzZMSloxM0dYWkNDU1RROkdPWldqQXpZSkQyQjdLTnVmVExZWERGU1dwUmdQVFROaVNIXzVCVjk=");
+
+              var requestOptions = {
+                method: 'PUT',
+                headers: myHeaders,
+                redirect: 'follow'
+              };
+
+              fetch("https://wallet-api.klaytnapi.com/v2/account/" + record.AccountAddress + "/disable", requestOptions)
+                .then(response => response.text())
+                .then(data => { //alert(JSON.stringify(data)) 
+                  document.getElementById("myText").innerHTML = "";
+                  data = JSON.parse(data);
+
+                  for (var key in data) {
+                    debugger
+                    if (typeof (data[key]) == "object") {
+                      document.getElementById("myText").innerHTML += "\n";
+                      document.getElementById("myText").innerHTML += key.toUpperCase() + "\n";
+                      for (var key1 in data[key]) {
+                        if (data[key][key1] != "" && data[key][key1] != null && typeof (data[key][key1]) != "object") {
+                          document.getElementById("myText").innerHTML += "    " + key1.toUpperCase() + " : " + data[key][key1] + "\n";
+                        }
+                      }
+                      document.getElementById("myText").innerHTML += "\n";
+                    }
+                    else if (data[key] != "" && data[key] != null) {
+                      document.getElementById("myText").innerHTML += key.toUpperCase() + " : " + data[key] + "\n";
+                    }
+                    $('#exampleModal').modal('show');
+                    $('#myText').show();
+
+                  }
+                })
+            }
+            else if (args.commandColumn.type == "AccountInfo") {
+              // confirm("Do You Want To Deactivate This Wallet " + Address + " ?");
+              var record = {};
+              record.AccountAddress = Address;
+
+              var myHeaders = new Headers();
+              myHeaders.append("x-chain-id", "1001");
+              myHeaders.append("x-krn", "krn:1001:wallet:4c50c0ca-d56f-4d70-9ffd-6f2f3dc2f5f5:account-pool:Companies");
+              myHeaders.append("Authorization", "Basic S0FTS05HTFcyQzZMSloxM0dYWkNDU1RROkdPWldqQXpZSkQyQjdLTnVmVExZWERGU1dwUmdQVFROaVNIXzVCVjk=");
+
+              var requestOptions = {
+                method: 'GET',
+                headers: myHeaders,
+                redirect: 'follow'
+              };
+
+              fetch("https://wallet-api.klaytnapi.com/v2/account/" + record.AccountAddress, requestOptions)
+                .then(response => response.text())
+                .then(data => {
+                  document.getElementById("myText").innerHTML = "";
+                  data = JSON.parse(data);
+
+                  for (var key in data) {
+                    debugger
+                    if (typeof (data[key]) == "object") {
+                      document.getElementById("myText").innerHTML += "\n";
+                      document.getElementById("myText").innerHTML += key.toUpperCase() + "\n";
+                      for (var key1 in data[key]) {
+                        if (data[key][key1] != "" && data[key][key1] != null && typeof (data[key][key1]) != "object") {
+                          document.getElementById("myText").innerHTML += "    " + key1.toUpperCase() + " : " + data[key][key1] + "\n";
+                        }
+                      }
+                      document.getElementById("myText").innerHTML += "\n";
+                    }
+                    else if (data[key] != "" && data[key] != null) {
+                      document.getElementById("myText").innerHTML += key.toUpperCase() + " : " + data[key] + "\n";
+                    }
+                    $('#exampleModal').modal('show');
+                    $('#myText').show();
+
+                  }
+                })
+
+
+            }
+            else {
+              confirm("Do You Want To Delete This Wallet " + Address + " ?");
+              var record = {};
+              record.AccountAddress = Address;
+
+              var myHeaders = new Headers();
+              myHeaders.append("x-chain-id", "1001");
+              myHeaders.append("x-krn", "krn:1001:wallet:4c50c0ca-d56f-4d70-9ffd-6f2f3dc2f5f5:account-pool:Companies");
+              myHeaders.append("Authorization", "Basic S0FTS05HTFcyQzZMSloxM0dYWkNDU1RROkdPWldqQXpZSkQyQjdLTnVmVExZWERGU1dwUmdQVFROaVNIXzVCVjk=");
+
+              var requestOptions = {
+                method: 'DELETE',
+                headers: myHeaders,
+                redirect: 'follow'
+              };
+              debugger
+              console.log(record.AccountAddress);
+
+              fetch("https://wallet-api.klaytnapi.com/v2/account/" + record.AccountAddress, requestOptions)
+                .then(response => response.text())
+                .then(data => { alert(JSON.stringify(data)) })
+
+              var myHeaders = new Headers();
+              myHeaders.append("x-chain-id", "1001");
+              myHeaders.append("Authorization", "Basic S0FTS05HTFcyQzZMSloxM0dYWkNDU1RROkdPWldqQXpZSkQyQjdLTnVmVExZWERGU1dwUmdQVFROaVNIXzVCVjk=");
+
+              var requestOptions = {
+                method: 'GET',
+                headers: myHeaders,
+                redirect: 'follow'
+              };
+              var url = "https://wallet-api.klaytnapi.com/v2/account?&size=100&cursor=&from-timestamp=1592360291&to-timestamp=15991809920";
+              fetch(url, requestOptions)
+                .then(response => response.text())
+                .then(data => {
+                  document.getElementById("myText").innerHTML = "";
+                  data = JSON.parse(data);
+
+                  for (var key in data) {
+                    debugger
+                    if (typeof (data[key]) == "object") {
+                      document.getElementById("myText").innerHTML += "\n";
+                      document.getElementById("myText").innerHTML += key.toUpperCase() + "\n";
+                      for (var key1 in data[key]) {
+                        if (data[key][key1] != "" && data[key][key1] != null && typeof (data[key][key1]) != "object") {
+                          document.getElementById("myText").innerHTML += "    " + key1.toUpperCase() + " : " + data[key][key1] + "\n";
+                        }
+                      }
+                      document.getElementById("myText").innerHTML += "\n";
+                    }
+                    else if (data[key] != "" && data[key] != null) {
+                      document.getElementById("myText").innerHTML += key.toUpperCase() + " : " + data[key] + "\n";
+                    }
+                    $('#exampleModal').modal('show');
+                    $('#myText').show();
+
+                  }
+                  debugger
+                })
+
+            }
+          }
+        });
+        grid.appendTo('#Grid');
+      })
+      .catch(error => console.log('error', error));
+    
+
+  </script>
+</body>
+
+</html>
